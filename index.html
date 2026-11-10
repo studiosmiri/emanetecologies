@@ -1,9 +1,10 @@
 <!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8"><title>Emanet Ecologies</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
-/* Layout: four full-bleed views on black (Map, Latmos analysis, Specimen 01, Field notes) under one thin top bar; text sits in the corners like an archive plate. */
+/* Layout: four full-bleed views on black (Map, Latmos analysis, Specimen 01, Gesture atlas with field notes) under one thin top bar; text sits in the corners like an archive plate. */
 :root{
   --bg:#050505;
   --ink:#ece8df;
@@ -666,58 +667,73 @@ body.intro .topbar{opacity:0;pointer-events:none}
 .tdemoset button{all:unset;cursor:pointer;font-family:var(--mono);font-size:10.5px;color:#fff;border:1px solid rgba(255,255,255,.4);padding:6px 8px;text-align:center}
 .tdemoset button:hover{border-color:#fff}
 
-/* ===== field notes timeline ===== */
-#v-notes{background:#000;padding:0!important;overflow:hidden!important;display:flex;flex-direction:column}
-.tl-head{padding:calc(76px + env(safe-area-inset-top,0px)) max(28px,env(safe-area-inset-left,0px)) 0;max-width:760px}
-.tl-head h2{font-size:clamp(30px,3vw,46px);line-height:.95;letter-spacing:-.04em;margin:6px 0 10px;font-weight:700}
-.tl-head h2 i{font-weight:300}
-.tl-head p{margin:0;font-size:13px;line-height:1.5;color:#a8a397}
-.tl{flex:1;min-height:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#444 #000;outline:none;cursor:grab;position:relative}
-.tl.drag{cursor:grabbing}
-.tl-track{position:relative;height:100%;min-height:560px;display:flex;align-items:stretch;padding:0 120px 0 60px;width:max-content}
-.tl-track::before{content:"";position:absolute;left:0;right:0;top:46%;height:14px;transform:translateY(-50%);background:#fff;border-radius:7px;box-shadow:0 0 30px rgba(255,255,255,.18)}
-.tl-track::after{content:"";position:absolute;right:30px;top:46%;width:0;height:0;border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;transform:translateY(-50%)}
-.ev{position:relative;width:230px;flex:0 0 auto;margin-right:-40px}
-.ev .stem{position:absolute;left:0;width:1px;background:#fff}
-.ev.up .stem{bottom:54%;height:calc(var(--gap) + 40px)}
-.ev.dn .stem{top:46%;height:calc(var(--gap) + 40px)}
-.ev .card{position:absolute;left:8px;right:0;display:flex;flex-direction:column;gap:6px}
-.ev.up .card{bottom:calc(54% + var(--gap) + 10px)}
-.ev.dn .card{top:calc(46% + var(--gap) + 10px)}
-.ev .dt{font-size:20px;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1}
-.ev h3{margin:0;font-size:13px;font-weight:700;color:#fff;line-height:1.25}
-.ev p{margin:0;font-size:12px;line-height:1.45;color:#bdb8ad}
-.ev .src{font-size:10.5px;color:#7d786e;font-style:italic}
-.ev img{display:block;max-width:210px;max-height:118px;width:auto;height:auto;object-fit:cover;border-radius:2px;cursor:zoom-in;box-shadow:0 12px 30px -10px rgba(0,0,0,.9);transition:transform .25s}
-.ev img:hover{transform:scale(1.04)}
-.ev .tx{display:flex;flex-direction:column;gap:4px}
-.ev .dot{position:absolute;left:-6px;top:46%;width:13px;height:13px;border-radius:50%;background:#000;border:2px solid #fff;transform:translateY(-50%);z-index:2}
-.ev.now .dot{background:#e8675a;border-color:#e8675a;box-shadow:0 0 14px #e8675a}
-.ev.now .dt{color:#e8675a}
-.tl-nav{position:absolute;right:max(28px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:#8c877c;z-index:3}
-.tl-nav .chip{border-radius:0;color:#fff;border-color:rgba(255,255,255,.4);padding:4px 12px}
-.tl-lb{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:40px}
-.tl-lb.on{display:flex}.tl-lb img{max-width:92vw;max-height:78vh;object-fit:contain}.tl-lb p{color:#cdc8bc;font-size:13px;max-width:760px;text-align:center;margin:0}
-@media (max-height:820px) and (min-width:761px){ .ev p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden} .ev .src{display:none} }
-@media (max-width:760px){
-  .tl{overflow-x:hidden;overflow-y:auto;cursor:auto}
-  .tl-track{flex-direction:column;width:auto;padding:20px 16px 80px 40px;min-height:0;height:auto}
-  .tl-track::before{left:20px;top:0;bottom:0;right:auto;width:8px;height:auto;transform:none}
-  .tl-track::after{display:none}
-  .ev{width:auto;margin:0 0 26px 0}
-  .ev .stem{display:none}
-  .ev .card,.ev.up .card,.ev.dn .card{position:static;flex-direction:column}
-  .ev .dot{left:-24px;top:8px;transform:none}
-  .ev img{max-width:100%;max-height:220px}
-  .tl-nav{display:none}
-}
-
 .tsites{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding-top:8px}
 .tsites[hidden]{display:none}
 .tsites button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#cdc8bc;padding:4px 2px}
 .tsites button i{width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.15)}
 .tsites button:hover{color:#fff}.tsites button:hover i{background:#e8675a}
 @media (max-width:860px){ .tsites{flex-direction:row;flex-wrap:wrap;gap:2px 12px} }
+
+/* ===== gesture atlas ===== */
+.gl{display:flex!important;align-items:center;gap:6px}
+.gl .gv{margin-right:auto}
+#v-gesture .glock{padding:0;cursor:pointer;width:20px;height:20px;flex:0 0 20px;border:1px solid var(--line);background-color:transparent;background-repeat:no-repeat;background-position:center;background-size:11px 11px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Crect x='2' y='5.5' width='8' height='5.5' fill='none' stroke='%2399948a' stroke-width='1.2'/%3E%3Cpath d='M4 5.5V3.5a2 2 0 0 1 4 0' fill='none' stroke='%2399948a' stroke-width='1.2'/%3E%3C/svg%3E")}
+#v-gesture .glock[aria-pressed="true"]{border-color:#e3c47e;background-color:#e3c47e;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Crect x='2' y='5.5' width='8' height='5.5' fill='%23050505'/%3E%3Cpath d='M4 5.5V3.5a2 2 0 0 1 4 0v2' fill='none' stroke='%23050505' stroke-width='1.2'/%3E%3C/svg%3E")}
+.glock:focus-visible{outline:2px solid var(--signal)}
+#v-gesture input[type=range]:disabled{opacity:.45;cursor:not-allowed}
+.gcols button{flex:1}
+.glegend{position:relative;margin-top:8px;height:22px}
+.glegend i{display:block;height:8px;border:1px solid var(--line)}
+.glegend span{position:absolute;top:11px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+#glo{left:0} #ghi{right:0}
+
+#v-gesture{background:#050505}
+#gscene{position:absolute;inset:0}
+#gscene canvas{display:block}
+#gloading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);pointer-events:none;font-family:var(--mono);font-size:12px}
+.gpanel{position:absolute;background:rgba(5,5,5,.86);border:1px solid var(--line);padding:12px 14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2}
+#gui{top:calc(66px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));width:300px;max-height:calc(100% - 86px);overflow:auto;font-size:13px}
+#gui h1{font-size:15px;margin:0 0 2px;font-weight:700}
+.gsub{color:var(--muted);margin:0 0 10px;font-size:12px}
+.grow{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+#v-gesture button{background:transparent;color:var(--ink);border:1px solid var(--line);padding:5px 9px;font:inherit;font-size:12px;cursor:pointer}
+#v-gesture button.on{border-color:#e3c47e;color:#e3c47e}
+#v-gesture label{display:block;color:var(--muted);margin-top:10px;font-size:12px}
+#v-gesture input[type=range]{width:100%;accent-color:#e3c47e}
+.gsec{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
+.gk{color:var(--muted)} .gv{color:#e3c47e;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:12px}
+.gnote{color:var(--muted);font-size:11px;margin-top:4px;line-height:1.45}
+.ggest{font-size:12px;color:var(--muted)} .ggest b{color:var(--ink);font-weight:600}
+#ghud{right:max(16px,env(safe-area-inset-right,0px));top:calc(66px + env(safe-area-inset-top,0px));min-width:210px;font-size:12px;display:grid;gap:2px}
+#gcam{right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));padding:6px;width:240px;height:183px}
+#gcam video,#gcam canvas{position:absolute;top:6px;left:6px;width:228px;height:171px;transform:scaleX(-1);object-fit:cover}
+
+/* field notes around the tree */
+#gtag{position:absolute;z-index:3;left:0;top:0;pointer-events:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .15s;text-shadow:0 1px 6px #000}
+#gtag b{color:#e3c47e;font-weight:500;margin-right:6px}
+#gtag.on{opacity:1}
+#gcur{position:absolute;z-index:6;left:0;top:0;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .2s;
+  background:conic-gradient(#e3c47e calc(var(--p,0)*1turn),rgba(255,255,255,.22) 0);-webkit-mask:radial-gradient(circle,transparent 18px,#000 19px);mask:radial-gradient(circle,transparent 18px,#000 19px)}
+#gcur.on{opacity:1}
+#gcur.edge{background:rgba(227,196,126,.75)}
+#v-gesture .hov{border-color:#e3c47e!important;color:#000!important;background:#e3c47e!important}
+#gnote{right:max(16px,env(safe-area-inset-right,0px));top:calc(66px + env(safe-area-inset-top,0px));width:min(380px,calc(100% - 32px));max-height:calc(100% - 86px);overflow:auto;display:flex;flex-direction:column;gap:9px;z-index:4;transform:translateX(calc(100% + 30px));transition:transform .4s cubic-bezier(.2,.9,.2,1)}
+#gnote.on{transform:none}
+#gnote[hidden]{display:flex;visibility:hidden}
+.gnhd{display:flex;justify-content:space-between;align-items:center}
+.gnim{background:#000;display:flex;justify-content:center}.gnim img{max-width:100%;max-height:34vh;object-fit:contain;display:block}
+.gndt{font-family:var(--mono);font-size:20px;color:#fff}
+#gnote.now .gndt{color:#e8675a}
+#gnote h3{margin:0;font-size:17px;line-height:1.2;color:#fff}
+#gnote p{margin:0;font-size:13px;line-height:1.55;color:#cdc8bc}
+.gnsrc{font-size:11px;color:#7d786e;font-style:italic}
+#v-gesture.noting #ghud{opacity:0;pointer-events:none}
+#v-gesture #gscene canvas{cursor:grab}
+#v-gesture.hovpic #gscene canvas{cursor:zoom-in}
+@media (max-width:760px){ #gnote{top:calc(60px + env(safe-area-inset-top,0px));max-height:52vh;right:10px;width:auto;left:10px} #gnote .gnim img{max-height:20vh} }
+@media (max-width:760px){ #gui{top:auto;bottom:calc(10px + env(safe-area-inset-bottom,0px));left:10px;right:10px;width:auto;max-height:40vh} #ghud{top:calc(60px + env(safe-area-inset-top,0px));right:10px;min-width:0} #gcam{bottom:auto;top:calc(200px + env(safe-area-inset-top,0px));right:10px;width:160px;height:126px} #gcam video,#gcam canvas{width:148px;height:114px} }
 </style>
 
 <nav class="topbar" aria-label="Sections">
@@ -731,7 +747,7 @@ body.intro .topbar{opacity:0;pointer-events:none}
     <a href="#terraces" data-view="terraces" style="--tc:#ffffff" data-d="The terrain model used to project the terracing across Latmos"><span class="cb" aria-hidden="true"></span><span class="rec" aria-hidden="true"></span><span class="no">05</span><span class="lb"><span class="lg">Projected terracing</span><span class="sm">Terraces</span></span></a>
     <a href="#methods" data-view="methods" style="--tc:#5ea6f0" data-d="Nine methods, each with an immersive drawing"><span class="cb" aria-hidden="true"></span><span class="rec" aria-hidden="true"></span><span class="no">06</span><span class="lb"><span class="lg">Methods</span><span class="sm">Methods</span></span></a>
     <a href="#specimen" data-view="specimen" style="--tc:#e3c47e" data-d="Olive trunk as a point cloud"><span class="cb" aria-hidden="true"></span><span class="rec" aria-hidden="true"></span><span class="no">07</span><span class="lb"><span class="lg">Specimen 01</span><span class="sm">Specimen</span></span></a>
-    <a href="#notes" data-view="notes" style="--tc:#e0a26e" data-d="A timeline of olives, terraces and their records"><span class="cb" aria-hidden="true"></span><span class="rec" aria-hidden="true"></span><span class="no">08</span><span class="lb"><span class="lg">Field notes</span><span class="sm">Notes</span></span></a>
+    <a href="#gesture" data-view="gesture" style="--tc:#e3c47e" data-d="The specimen olive with the field-notes timeline around it: open a picture with a click or an open palm"><span class="cb" aria-hidden="true"></span><span class="rec" aria-hidden="true"></span><span class="no">08</span><span class="lb"><span class="lg">Gesture atlas · notes</span><span class="sm">Gesture</span></span></a>
     <span class="thov" aria-hidden="true"></span><span class="tind" aria-hidden="true"></span>
   </div>
 </nav>
@@ -1035,6 +1051,78 @@ body.intro .topbar{opacity:0;pointer-events:none}
   <div class="bhint">Drag to turn · scroll to zoom</div>
 </section>
 
+
+<!-- GESTURE ATLAS -->
+<section class="view" id="v-gesture" aria-label="Gesture atlas, Specimen 01" hidden>
+  <div id="gscene"></div>
+  <div id="gloading">Building the specimen from its point cloud…</div>
+  <div id="gui" class="gpanel">
+    <h1>Gesture Atlas</h1>
+    <p class="gsub">Specimen 01 · olive trunk, Mount Latmos</p>
+    <div class="grow"><button id="gbtnCam" type="button">Start camera</button><button id="gbtnSound" type="button">Start sound</button></div>
+    <div class="gsec">
+      <div class="gk">Point cloud</div>
+      <label class="gl">Point size <span id="gpsVal" class="gv">1.0×</span><button type="button" class="glock" data-lock="gpsize" aria-pressed="false" aria-label="Lock point size" title="Lock"></button></label>
+      <input id="gpsize" type="range" min="0.3" max="4" step="0.1" value="1">
+      <label>Colour</label>
+      <div class="grow gcols"><button id="gcTrue" type="button" class="on" data-c="true">True colour</button><button type="button" data-c="height">Height</button><button type="button" data-c="heat">Heat</button><button type="button" data-c="water">Waterflow</button></div>
+      <div class="glegend" id="glegend"><i id="glbar"></i><span id="glo"></span><span id="ghi"></span></div>
+      <div class="gnote" id="gcnote"></div>
+    </div>
+    <div class="gsec">
+      <div class="gk">Field notes</div>
+      <div class="grow" id="gnarr"><button type="button" data-arr="scatter" id="gnshuf">Shuffle</button><button type="button" id="gnhide">Hide pictures</button></div>
+      <div class="gnote">Fifteen notes, each with two close-ups, drift around the tree in no particular order. Click a picture, or hold your right palm on it, to read the note.</div>
+    </div>
+    <div class="gsec">
+      <label class="gl">Section cut from the top <span id="gdepthVal" class="gv">0%</span><button type="button" class="glock" data-lock="gdepth" aria-pressed="false" aria-label="Lock top cut" title="Lock"></button></label>
+      <input id="gdepth" type="range" min="0" max="3" step="0.01" value="0">
+      <label class="gl">Section cut from the bottom <span id="gbotVal" class="gv">0%</span><button type="button" class="glock" data-lock="gbot" aria-pressed="false" aria-label="Lock bottom cut" title="Lock"></button></label>
+      <input id="gbot" type="range" min="0" max="3" step="0.01" value="0">
+      <div class="gnote">The top cut comes down from the crown; the bottom cut rises from the root crown. Together they leave a slice of the tree between two gold rings.</div>
+      <label class="gl">Vertical exaggeration <span id="gvexVal" class="gv">1.0×</span><button type="button" class="glock" data-lock="gvex" aria-pressed="false" aria-label="Lock vertical exaggeration" title="Lock"></button></label>
+      <input id="gvex" type="range" min="0.5" max="2.5" step="0.1" value="1">
+    </div>
+    <div class="gsec">
+      <div class="gk">Sound</div>
+      <label class="gl">Volume <span id="gvolVal" class="gv">60%</span><button type="button" class="glock" data-lock="gvol" aria-pressed="false" aria-label="Lock volume" title="Lock"></button></label>
+      <input id="gvol" type="range" min="0" max="1" step="0.01" value="0.6">
+      <div class="gnote">Ambient score moving between C and F major, tuned to A = 432 Hz. A deeper section cut filters the pads darker, drops the chimes an octave and raises a low earth tone. Each new gesture rings a chime.</div>
+    </div>
+    <div class="gsec ggest">
+      <div class="gk">Right hand · the pictures</div>
+      <div><b>Open palm</b>, the gold ring follows it</div>
+      <div><b>Hold it on a picture</b>, the note opens; <b>on a button</b>, it presses</div>
+      <div><b>Hold it at an edge</b>, walk around the tree or look up and down</div>
+      <div class="gk" style="margin-top:8px">Both hands · the tree</div>
+      <div><b>Open palms, spread apart / bring together</b>, zoom in / out</div>
+      <div><b>Open palms, lower / raise together</b>, top section cut down / up (the bottom cut if the top is locked)</div>
+      <div><b>Tilt, one hand higher than the other</b>, point size</div>
+      <div><b>Two fists</b>, next colour: true, height, heat, waterflow</div>
+      <div style="margin-top:6px">Mouse: click a picture · drag to orbit · right-drag to pan · scroll to zoom. A padlocked slider is left alone by the hands too.</div>
+    </div>
+  </div>
+  <div id="ghud" class="gpanel">
+    <div><span class="gk">Gesture</span> <span id="ghGest" class="gv">—</span></div>
+    <div><span class="gk">Hands</span> <span id="ghHands" class="gv">0</span></div>
+    <div><span class="gk">Section</span> <span id="ghDepth" class="gv">0%</span></div>
+    <div><span class="gk">Slice</span> <span id="ghCut" class="gv">—</span></div>
+    <div><span class="gk">Colour</span> <span id="ghCol" class="gv">true colour</span></div>
+    <div><span class="gk">Points</span> <span id="ghPts" class="gv">—</span></div>
+    <div><span class="gk">Status</span> <span id="ghStatus" class="gv">camera off</span></div>
+  </div>
+  <div id="gcam" class="gpanel" style="display:none"><video id="gvideo" playsinline muted></video><canvas id="goverlay" width="320" height="240"></canvas></div>
+  <div id="gtag" aria-hidden="true"></div>
+  <div id="gcur" aria-hidden="true"><i></i></div>
+  <aside id="gnote" class="gpanel" aria-label="Field note" hidden>
+    <div class="gnhd"><span class="gk" id="gnth"></span><button type="button" id="gnx">Close ✕</button></div>
+    <div class="gnim"><img id="gnimg" alt=""></div>
+    <div class="gndt" id="gndt"></div><h3 id="gnt"></h3><p id="gnp"></p><span class="gnsrc" id="gnsrc"></span>
+    <div class="grow" id="gnact"></div>
+    <div class="grow"><button type="button" id="gnprev">← Previous</button><button type="button" id="gnnext">Next →</button></div>
+  </aside>
+</section>
+
 <!-- SPECIMEN -->
 <section class="view" id="v-specimen" aria-label="Specimen 01" hidden>
   <div class="stage" id="stage"></div>
@@ -1077,18 +1165,8 @@ body.intro .topbar{opacity:0;pointer-events:none}
 </section>
 
 <!-- NOTES -->
-<section class="view" id="v-notes" aria-label="Field notes, a timeline" hidden>
-  <div class="tl-head">
-    <div class="eyebrow">Field notes</div>
-    <h2>Olives, terraces <i>and their records</i></h2>
-    <p>From the first olive groves to June 2027: the plates, maps and photographs behind the atlas, set on one line. Scroll along the line; click a picture to open it.</p>
-  </div>
-  <div class="tl" id="tl" tabindex="0" aria-label="Timeline, scroll sideways"><div class="tl-track" id="tltrack"></div></div>
-  <div class="tl-nav"><button type="button" class="chip" id="tlprev" aria-label="Earlier">←</button><span id="tlpos"></span><button type="button" class="chip" id="tlnext" aria-label="Later">→</button></div>
-</section>
 
 
-<div class="tl-lb" id="tllb" role="dialog" aria-label="Picture"><img id="tllbimg" alt=""><p id="tllbcap"></p><button type="button" class="chip" id="tllbx">Close ✕</button></div>
 <div id="plbox" role="dialog" aria-modal="true" aria-labelledby="pltitle">
   <div id="plstage"><div id="plwrap"><img id="plimg" alt=""></div><button type="button" class="chip" id="plclose" aria-label="Close plate viewer">Close ✕</button><div id="plhint">Drag to pan · scroll or pinch to zoom · click a number</div></div>
   <aside id="plside">
@@ -2148,43 +2226,29 @@ const MV = (()=>{
   function drawPlates(i,t){ HOTP=[]; const L=PLATES_FOR[i]; if(!L) return; if(i===3&&SOLO>=0) return;  for(const pl of L) drawPlate(pl.k,pl,t); }
   function figuresHTML(i){ const L=i===1?[{k:'kiepertcaria'},{k:'fellows'}]:PLATES_FOR[i]; if(!L) return ''; return `<div class="mfigs"><div class="lg-title">${i===1?'Historical maps draped in this drawing':'Historical plates in this drawing'}</div>${L.map(pl=>{ const M=PM[pl.k]; return `<p class="mfig"><b>${M.fig}.</b> ${M.title}. ${M.credit} <span class="msrc">${M.src}</span>${M.note?`<em>${M.note}</em>`:''}<button type="button" class="chip act mopen" data-plate="${pl.k}">Open plate ${M.fig.replace('Plate ','')}</button></p>`; }).join('')}</div>`; }
 
-  // ---------- Field notes as a timeline: dated entries above and below a white line, with colour pictures
-  (function(){ const tr=document.getElementById('tltrack'); if(!tr) return; const ND=JSON.parse(document.getElementById('notesdata').textContent); const G=JSON.parse(document.getElementById('geo').textContent);
-    const L=G.detail.layers;
+  // ---------- Field notes: the dated notes, shared with the Gesture atlas, where they hang around the specimen tree
+  (function(){ const ND=JSON.parse(document.getElementById('notesdata').textContent); const G=JSON.parse(document.getElementById('geo').textContent);
+    const PLD=JSON.parse(document.getElementById('platesdata').textContent); const L=G.detail.layers;
     const E=[
-      {d:'c. 6000 BC', t:'Olives domesticated', p:'Wild olive is taken into cultivation in the eastern Mediterranean; over millennia groves spread west along the coasts of Anatolia.', img:ND.n1.src, cap:'Field note 01, multi-stemmed olives on a dry slope, the form of very old, cut-back trees.'},
-      {d:'1st millennium BC', t:'Leleges and Carians', p:'Hilltop settlements such as Pedasa command the slopes of the Bodrum peninsula; the hillsides around them are later terraced.', img:L.slope, cap:'Slope classes of the Latmos window, from the project’s terrain analysis.'},
-      {d:'c. 520 BC', t:'Beating the branches', p:'An Attic amphora shows olives knocked from a tree with long poles and gathered into a basket, the harvest still practised in Caria.', plate:'amphora'},
-      {d:'c. 520–510 BC', t:'The lever press', p:'A drinking cup shows a beam press weighted with sacks of stones: the technology of the presses that sit among the terraces.', plate:'skyphos'},
-      {d:'c. 370 BC', t:'Mausolus, Mylasa to Halikarnassos', p:'The Hekatomnid dynasty rules Caria; Mausolus moves his capital from Mylasa to Halikarnassos. The olive country between them is worked from both.', img:L.relief, cap:'Relief of the Herakleia–Latmos window, ASTER elevation.'},
-      {d:'c. 300 BC', t:'Herakleia under Latmos', p:'The city is laid out on the shore of the Latmian Gulf with walls climbing the ridge; its territory reaches up into the terraced slopes.', img:L.aspect, cap:'Slope aspect of the Latmos window: which way each terrace faces.'},
-      {d:'1st–6th c. AD', t:'Roman and late antique presses', p:'Lever-and-weight presses with stone beds and crushing basins spread across the eastern provinces.', plate:'capernaum'},
-      {d:'7th–13th c.', t:'Latmos, the holy mountain', p:'Monastic communities settle Latmos; hermitages, chapels and groves are kept on the mountain while the gulf silts up into Lake Bafa.', img:ND.n2.src, cap:'Field note 02, olives among carved stelae and coursed masonry.'},
-      {d:'1782', t:'Choiseul-Gouffier at Mylasa', p:'The Voyage pittoresque de la Grèce records the temple at Mylasa with view, plan and measured details: an early survey of Caria.', plate:'mylasa'},
-      {d:'1839', t:'Fellows’ map of Asia Minor', p:'Engraved by John Arrowsmith from Charles Fellows’ journeys; on this site it is georeferenced and its errors measured.', plate:'fellows'},
-      {d:'1884–1903', t:'Kiepert’s Caria', p:'Heinrich Kiepert’s sheets fix the villages, routes and the outline of Lake Bafa before modern change.', plate:'kiepertcaria'},
-      {d:'1960–72', t:'CORONA photographs', p:'Declassified satellite frames record terraces and tracks before the Bodrum building boom.', img:L.drain, cap:'Drainage of the Latmos window, from the terrain model.'},
-      {d:'2026', t:'Projected terracing', p:'The terrain model is used to project where terracing fits the ground: about half of the window, in treads at 15 m steps.', img:G.block.proj.shade, cap:'Projected-terracing ground texture, Latmos window.', go:'terraces'},
-      {d:'June 2027', t:'Fieldwork, non-invasive', p:'Transects, four drone blocks with a DJI Mini 4 Pro, and one ground-truth station: radar, wall faces, lichens, girth. Nothing dug or taken.', img:L.olive, cap:'Olive envelope model, the ground most favourable to olives.', go:'design', now:1},
-      {d:'From Sept. 2027', t:'The atlas', p:'Terraces, olives, water, paths and presses read together in one GIS, and handed on.', img:L.relief, cap:'', go:'map'},
+      {d:'c. 6000 BC', t:'Olives domesticated', th:'olive', p:'Wild olive is taken into cultivation in the eastern Mediterranean; over millennia groves spread west along the coasts of Anatolia.', img:ND.n1.src, ar:ND.n1.w/ND.n1.h, cap:'Field note 01, multi-stemmed olives on a dry slope, the form of very old, cut-back trees.'},
+      {d:'1st millennium BC', t:'Leleges and Carians', th:'land', p:'Hilltop settlements such as Pedasa command the slopes of the Bodrum peninsula; the hillsides around them are later terraced.', img:L.slope, cap:'Slope classes of the Latmos window, from the project’s terrain analysis.'},
+      {d:'c. 520 BC', t:'Beating the branches', th:'olive', p:'An Attic amphora shows olives knocked from a tree with long poles and gathered into a basket, the harvest still practised in Caria.', plate:'amphora'},
+      {d:'c. 520–510 BC', t:'The lever press', th:'press', p:'A drinking cup shows a beam press weighted with sacks of stones: the technology of the presses that sit among the terraces.', plate:'skyphos'},
+      {d:'c. 370 BC', t:'Mausolus, Mylasa to Halikarnassos', th:'land', p:'The Hekatomnid dynasty rules Caria; Mausolus moves his capital from Mylasa to Halikarnassos. The olive country between them is worked from both.', img:L.relief, cap:'Relief of the Herakleia–Latmos window, ASTER elevation.'},
+      {d:'c. 300 BC', t:'Herakleia under Latmos', th:'land', p:'The city is laid out on the shore of the Latmian Gulf with walls climbing the ridge; its territory reaches up into the terraced slopes.', img:L.aspect, cap:'Slope aspect of the Latmos window: which way each terrace faces.'},
+      {d:'1st–6th c. AD', t:'Roman and late antique presses', th:'press', p:'Lever-and-weight presses with stone beds and crushing basins spread across the eastern provinces.', plate:'capernaum'},
+      {d:'7th–13th c.', t:'Latmos, the holy mountain', th:'olive', p:'Monastic communities settle Latmos; hermitages, chapels and groves are kept on the mountain while the gulf silts up into Lake Bafa.', img:ND.n2.src, ar:ND.n2.w/ND.n2.h, cap:'Field note 02, olives among carved stelae and coursed masonry.'},
+      {d:'1782', t:'Choiseul-Gouffier at Mylasa', th:'maps', p:'The Voyage pittoresque de la Grèce records the temple at Mylasa with view, plan and measured details: an early survey of Caria.', plate:'mylasa'},
+      {d:'1839', t:'Fellows’ map of Asia Minor', th:'maps', p:'Engraved by John Arrowsmith from Charles Fellows’ journeys; on this site it is georeferenced and its errors measured.', plate:'fellows'},
+      {d:'1884–1903', t:'Kiepert’s Caria', th:'maps', p:'Heinrich Kiepert’s sheets fix the villages, routes and the outline of Lake Bafa before modern change.', plate:'kiepertcaria'},
+      {d:'1960–72', t:'CORONA photographs', th:'land', p:'Declassified satellite frames record terraces and tracks before the Bodrum building boom.', img:L.drain, cap:'Drainage of the Latmos window, from the terrain model.'},
+      {d:'2026', t:'Projected terracing', th:'field', p:'The terrain model is used to project where terracing fits the ground: about half of the window, in treads at 15 m steps.', img:G.block.proj.shade, cap:'Projected-terracing ground texture, Latmos window.', go:'terraces'},
+      {d:'June 2027', t:'Fieldwork, non-invasive', th:'field', p:'Transects, four drone blocks with a DJI Mini 4 Pro, and one ground-truth station: radar, wall faces, lichens, girth. Nothing dug or taken.', img:L.olive, cap:'Olive envelope model, the ground most favourable to olives.', go:'design', now:1},
+      {d:'From Sept. 2027', t:'The atlas', th:'field', p:'Terraces, olives, water, paths and presses read together in one GIS, and handed on.', img:G.block.proj.terr, cap:'Projected terraces over the terrain block.', go:'map'},
     ];
-    const plateSrc=k=>{ try{ return JSON.parse(document.getElementById('platesdata').textContent)[k].disp; }catch(e){ return ''; } };
-    const PLD=JSON.parse(document.getElementById('platesdata').textContent);
-    tr.innerHTML=E.map((e,i)=>{ const up=i%2===0, top=[12,40,26][i%3]+'px'; const src=e.plate?PLD[e.plate].disp:e.img; const cr=e.plate?`<span class="src">${PM[e.plate].fig}. ${PM[e.plate].credit}</span>`:(e.cap?`<span class="src">${e.cap}</span>`:'');
-      return `<div class="ev ${up?'up':'dn'}${e.now?' now':''}" style="--gap:${top}"><span class="stem"></span><span class="dot"></span><div class="card"><img src="${src}" alt="${e.t}" data-i="${i}" loading="lazy"><div class="tx"><span class="dt">${e.d}</span><h3>${e.t}</h3><p>${e.p}</p>${cr}${e.go?`<button type="button" class="chip" data-go="${e.go}" style="align-self:flex-start;margin-top:2px">Open ${e.go==='design'?'research design':e.go==='terraces'?'projected terracing':'the map'} →</button>`:''}</div></div></div>`; }).join('');
-    const tl=document.getElementById('tl'), lb=document.getElementById('tllb');
-    tr.addEventListener('click',ev=>{ const g=ev.target.closest('[data-go]'); if(g){ location.hash=g.dataset.go; return; } const im=ev.target.closest('img[data-i]'); if(!im||tl.moved) return; const e=E[+im.dataset.i];
-      if(e.plate){ openPlate(e.plate); return; } document.getElementById('tllbimg').src=im.src; document.getElementById('tllbcap').textContent=`${e.d} · ${e.t}. ${e.cap||''}`; lb.classList.add('on'); });
-    document.getElementById('tllbx').onclick=()=>lb.classList.remove('on'); lb.addEventListener('click',ev=>{ if(ev.target===lb) lb.classList.remove('on'); });
-    addEventListener('keydown',ev=>{ if(ev.key==='Escape') lb.classList.remove('on'); });
-    // wheel scrolls sideways; drag to pan; arrows step one entry
-    tl.addEventListener('wheel',ev=>{ if(innerWidth<=760) return; if(Math.abs(ev.deltaY)>Math.abs(ev.deltaX)){ ev.preventDefault(); tl.scrollLeft+=ev.deltaY; } },{passive:false});
-    let dx=null; tl.addEventListener('pointerdown',ev=>{ if(innerWidth<=760||ev.target.closest('button')) return; dx={x:ev.clientX,s:tl.scrollLeft}; tl.moved=false; });
-    addEventListener('pointermove',ev=>{ if(!dx) return; const d=ev.clientX-dx.x; if(Math.abs(d)>4){ tl.moved=true; tl.classList.add('drag'); } tl.scrollLeft=dx.s-d; });
-    addEventListener('pointerup',()=>{ dx=null; tl.classList.remove('drag'); setTimeout(()=>tl.moved=false,0); });
-    const step=dir=>tl.scrollBy({left:dir*380,behavior:'smooth'}); document.getElementById('tlprev').onclick=()=>step(-1); document.getElementById('tlnext').onclick=()=>step(1);
-    tl.addEventListener('keydown',ev=>{ if(ev.key==='ArrowRight'){ step(1); ev.preventDefault(); } if(ev.key==='ArrowLeft'){ step(-1); ev.preventDefault(); } });
-    const pos=document.getElementById('tlpos'); const upd=()=>{ const evs=[...tr.children]; const mid=tl.scrollLeft+tl.clientWidth/2; let k=0; evs.forEach((el,i)=>{ if(el.offsetLeft<mid) k=i; }); pos.textContent=`${E[k].d}`; }; tl.addEventListener('scroll',upd,{passive:true}); upd();
+    const TH={olive:'Olives & harvest',land:'Land & terrain',press:'Presses',maps:'Maps & surveys',field:'Fieldwork & atlas'};
+    E.forEach(e=>{ e.thName=TH[e.th]; if(e.plate){ e.img=PLD[e.plate].disp; e.ar=PLD[e.plate].w/PLD[e.plate].h; e.cap=`${PM[e.plate].fig}. ${PM[e.plate].credit}`; e.fig=PM[e.plate].fig; } if(!e.ar) e.ar=4/3; });
+    window.NOTES_E=E;
   })();
   // Historical plates gallery in Field notes
   (function(){ const el=document.getElementById('plates'); if(!el) return; el.innerHTML=Object.keys(PM).filter(k=>PL[k]).map(k=>{ const M=PM[k], d=PL[k]; return `<figure tabindex="0" role="button" data-plate="${k}" aria-label="Open ${M.fig}: ${M.title}"><img src="${d.disp}" alt="${M.title}" width="${d.w}" height="${d.h}" loading="lazy"><figcaption><span class="no">${M.fig.replace('Plate ','')}</span><h3>${M.title}</h3><p>${M.credit}</p><p class="msrc">${M.src}</p></figcaption></figure>`; }).join(''); el.addEventListener('click',e=>{ const f=e.target.closest('[data-plate]'); if(f) openPlate(f.dataset.plate); }); el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ const f=e.target.closest('[data-plate]'); if(f){ e.preventDefault(); openPlate(f.dataset.plate); } } }); })();
@@ -2418,9 +2482,10 @@ const MV = (()=>{
 })();
 
 /* ---------- ROUTER ---------- */
-const VIEWS = ['intro','map','analysis','block','design','terraces','methods','specimen','notes'];
+const VIEWS = ['intro','map','analysis','block','design','terraces','methods','specimen','gesture'];
 const maps = {map: regionMap, analysis: aMap};
 function show(v){
+  if (v==='notes') v = 'gesture';   // the field notes now hang around the tree in the Gesture atlas
   if (!VIEWS.includes(v)) v = 'intro';
   document.body.classList.toggle('intro', v==='intro');
   for (const k of VIEWS) document.getElementById('v-'+k).hidden = k!==v;
@@ -2684,7 +2749,7 @@ const TMETA_RD={"n": 568570, "min": [-2.34369140625, -1.7386999607086182, -2.029
     a.setAttribute('aria-keyshortcuts',String(i+1));
   });
   T.addEventListener('pointerleave',()=>{ const a=links.find(l=>l.getAttribute('aria-current')==='page'); if(a) place(hov,a); });
-  addEventListener('keydown',e=>{ if(e.altKey&&/^[1-8]$/.test(e.key)){ links[+e.key-1].click(); } });
+  addEventListener('keydown',e=>{ if(e.altKey&&/^[1-9]$/.test(e.key)){ links[+e.key-1].click(); } });
 })();
 
 })();
@@ -2888,6 +2953,339 @@ function onView(v){
 addEventListener('emanet:view', e=>onView(e.detail));
 onView(window.__view);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<script>
+/* one shared MediaPipe Hands instance for the Gesture atlas and the Field notes; the view in front receives the results */
+window.sharedHands=function(cb){ if(typeof Hands==='undefined') return null; const S=window.sharedHands; S.cb=cb;
+  if(!S.h){ S.h=new Hands({locateFile:f=>`https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`}); S.h.setOptions({maxNumHands:2,modelComplexity:1,minDetectionConfidence:0.6,minTrackingConfidence:0.5}); S.h.onResults(r=>S.cb&&S.cb(r)); }
+  return S.h; };
+</script>
+<script type="module">
+/* Gesture atlas: the Gesture Atlas viewer (hand tracking, section cut, ambient score) rebuilt around the Specimen 01 olive */
+import * as THREE from 'three';
+const GMETA = {"n": 568570, "min": [-2.34369140625, -1.7386999607086182, -2.0296450090408324], "max": [2.3291072273254394, 4.55577917098999, 2.199222640991211], "anchors": {"crown": [0.695, 4.272, -0.992], "fork": [0.638, 2.738, -0.796], "trunk": [-0.403, 1.307, 0.092], "root": [0.483, 0.285, 0.331], "ground": [-1.804, -0.147, 0.965]}};
+const $ = id => document.getElementById(id);
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const view = $('v-gesture');
+const MAX_DEPTH = 3;
+let built=false, active=false;
+let renderer, scene, camera, points, pointsMat, cutPlane, cutBot, ring, ringMat, ring2, colTrue, colHeight, colHeat, colWater;
+let ptsTop=1, ptsBot=0, baseY=null, COL='true';
+const state = { depth: 0, depthGoal: 0, bot: 0, botGoal: 0, vex: 1, psize: 1 }; const LOCK = {};
+const rig = { tx: 0, ty: 1.6, tz: 0, az: 0.6, el: 0.3, r: 14 }, goal = { ...rig };
+
+function build(){
+  built=true;
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.localClippingEnabled = true;
+  $('gscene').appendChild(renderer.domElement);
+  scene = new THREE.Scene(); scene.background = new THREE.Color(0x050505); scene.fog = new THREE.Fog(0x050505, 22, 60);
+  camera = new THREE.PerspectiveCamera(45, 1, 0.05, 500);
+  // decode the specimen: uint16 positions within the bbox, then RGB bytes
+  const bin = atob(document.getElementById('pts').textContent.trim()), u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  const n = GMETA.n, q = new Uint16Array(u8.buffer, 0, n * 3), C = u8.subarray(n * 6, n * 9);
+  const P = new Float32Array(n * 3); baseY = new Float32Array(n);
+  for (let k = 0; k < n; k++){ for (let a = 0; a < 3; a++) P[k*3+a] = GMETA.min[a] + q[k*3+a] / 65535 * (GMETA.max[a] - GMETA.min[a]); baseY[k] = P[k*3+1]; }
+  colTrue = new Float32Array(n * 3); colHeight = new Float32Array(n * 3);
+  const HR = [[0,[61,74,58]],[0.3,[111,122,82]],[0.55,[179,155,107]],[0.8,[216,201,163]],[1,[240,235,220]]];
+  const ramp = (t)=>{ t=clamp(t,0,1); for(let i=1;i<HR.length;i++) if(t<=HR[i][0]){ const [t0,c0]=HR[i-1],[t1,c1]=HR[i],f=(t-t0)/(t1-t0); return [0,1,2].map(j=>c0[j]+(c1[j]-c0[j])*f); } return HR[HR.length-1][1]; };
+  for (let k = 0; k < n; k++){ for (let a = 0; a < 3; a++) colTrue[k*3+a] = Math.pow(Math.min(1, Math.pow(C[k*3+a] / 255, 0.92) * 1.06), 2.2); const c = ramp((baseY[k] - GMETA.min[1]) / (GMETA.max[1] - GMETA.min[1])); colHeight[k*3]=Math.pow(c[0]/255,2.2); colHeight[k*3+1]=Math.pow(c[1]/255,2.2); colHeight[k*3+2]=Math.pow(c[2]/255,2.2); }
+  // heat and waterflow, modelled from the scan geometry: a trunk axis per 10 cm of height, then distance from it
+  const y0 = GMETA.min[1], y1 = GMETA.max[1], NB = Math.ceil((y1 - y0) / 0.1) + 1, sx = new Float32Array(NB), sz = new Float32Array(NB), cnt = new Float32Array(NB);
+  for (let k = 0; k < n; k++){ const b = Math.floor((baseY[k] - y0) / 0.1); sx[b] += P[k*3]; sz[b] += P[k*3+2]; cnt[b]++; }
+  for (let b = 0; b < NB; b++){ if (cnt[b]){ sx[b] /= cnt[b]; sz[b] /= cnt[b]; } else if (b){ sx[b] = sx[b-1]; sz[b] = sz[b-1]; } }
+  const R = new Float32Array(n); let rmax = 0; for (let k = 0; k < n; k++){ const b = Math.floor((baseY[k] - y0) / 0.1); const dx = P[k*3] - sx[b], dz = P[k*3+2] - sz[b]; R[k] = Math.hypot(dx, dz); if (R[k] > rmax) rmax = R[k]; }
+  const sun = [Math.sin(0.35), 0, -Math.cos(0.35)];   // light from the south-southwest
+  const ramp2 = (S, t) => { t = clamp(t, 0, 1); for (let i = 1; i < S.length; i++) if (t <= S[i][0]){ const [t0, c0] = S[i-1], [t1, c1] = S[i], f = (t - t0) / (t1 - t0); return [0,1,2].map(j => Math.pow((c0[j] + (c1[j] - c0[j]) * f) / 255, 2.2)); } return S[S.length-1][1].map(v => Math.pow(v / 255, 2.2)); };
+  const HEAT = [[0,[20,8,52]],[0.25,[96,18,112]],[0.5,[200,48,72]],[0.72,[240,120,30]],[0.88,[250,200,60]],[1,[255,250,220]]];
+  const WATER = [[0,[6,10,30]],[0.3,[18,52,120]],[0.55,[36,120,200]],[0.78,[94,196,230]],[1,[230,250,255]]];
+  colHeat = new Float32Array(n * 3); colWater = new Float32Array(n * 3);
+  const gY = GMETA.anchors.ground[1], fY = GMETA.anchors.fork[1];
+  for (let k = 0; k < n; k++){ const b = Math.floor((baseY[k] - y0) / 0.1); const dx = P[k*3] - sx[b], dz = P[k*3+2] - sz[b], rl = R[k] || 1e-6;
+    const facing = (dx * sun[0] + dz * sun[2]) / rl, h = clamp((baseY[k] - gY) / (y1 - gY), 0, 1), out = clamp(R[k] / (rmax * 0.6), 0, 1), below = baseY[k] < gY ? 1 : 0;
+    const heat = below ? 0.08 + 0.1 * h : 0.15 + 0.35 * out + 0.3 * Math.max(0, facing) * (0.4 + 0.6 * out) + 0.2 * h;
+    const c1 = ramp2(HEAT, heat); colHeat[k*3] = c1[0]; colHeat[k*3+1] = c1[1]; colHeat[k*3+2] = c1[2];
+    const core = 1 - clamp(R[k] / Math.max(0.25, rmax * 0.35), 0, 1), up = baseY[k] < gY ? 1 : Math.pow(1 - clamp((baseY[k] - gY) / (fY - gY + 1.6), 0, 1), 0.8);
+    const water = clamp(0.15 + 0.6 * up * (0.4 + 0.6 * core) + (below ? 0.25 : 0), 0, 1); const c2 = ramp2(WATER, water); colWater[k*3] = c2[0]; colWater[k*3+1] = c2[1]; colWater[k*3+2] = c2[2]; }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(P, 3));
+  g.setAttribute('color', new THREE.BufferAttribute(colTrue.slice(), 3));
+  cutPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1e6); cutBot = new THREE.Plane(new THREE.Vector3(0, 1, 0), 1e6);
+  pointsMat = new THREE.PointsMaterial({ size: 0.035, vertexColors: true, sizeAttenuation: true, clippingPlanes: [cutPlane, cutBot] });
+  points = new THREE.Points(g, pointsMat); scene.add(points);
+  // the section plane, shown as a ring where the cut passes
+  ringMat = new THREE.MeshBasicMaterial({ color: 0xe3c47e, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+  ring = new THREE.Mesh(new THREE.RingGeometry(2.6, 2.63, 128), ringMat); ring.rotation.x = -Math.PI / 2; scene.add(ring); ring2 = ring.clone(); scene.add(ring2);
+  const grid = new THREE.GridHelper(8, 16, 0x333333, 0x1c1c1c); grid.position.y = GMETA.anchors.ground[1] - 0.05; scene.add(grid);
+  $('ghPts').textContent = n.toLocaleString();
+  applyVex(); buildNotes(); resize(); Object.assign(rig, goal);
+  $('gloading').remove();
+}
+function applyVex(){
+  const p = points.geometry.attributes.position, n = p.count, g0 = GMETA.anchors.ground[1];
+  ptsTop = -1e9; ptsBot = 1e9;
+  for (let k = 0; k < n; k++){ const y = g0 + (baseY[k] - g0) * state.vex; p.setY(k, y); if (y > ptsTop) ptsTop = y; if (y < ptsBot) ptsBot = y; }
+  p.needsUpdate = true; points.geometry.computeBoundingSphere();
+  goal.ty = g0 + (GMETA.anchors.fork[1] - g0) * state.vex * 0.75;
+  if (NG) arrangeNotes(ARR);
+}
+const CINFO = { true:['true colour','',''], height:['height','root crown','crown','linear-gradient(90deg,#3d4a3a,#6f7a52,#b39b6b,#d8c9a3,#f0ebdc)','Elevation of each point above the root crown.'],
+  heat:['heat, modelled','cool','warm','linear-gradient(90deg,#140834,#601270,#c83048,#f0781e,#fac83c,#fffadc)','Modelled surface warmth: outer canopy and the faces turned to the south-southwest sun run warm; the shaded core and the ground run cool. Not a thermal scan.'],
+  water:['waterflow, modelled','dry','wet','linear-gradient(90deg,#060a1e,#123478,#2478c8,#5ec4e6,#e6faff)','Modelled water movement: wettest in the soil and roots, carried up the trunk core and fading toward the outer crown. Not a measurement.'] };
+function setColour(m){ COL = m; document.querySelectorAll('.gcols button').forEach(b => b.classList.toggle('on', b.dataset.c === m)); const a = points.geometry.attributes.color; a.array.set({ true: colTrue, height: colHeight, heat: colHeat, water: colWater }[m]); a.needsUpdate = true;
+  const I = CINFO[m]; $('ghCol').textContent = I[0]; $('glegend').style.display = I[3] ? '' : 'none'; if (I[3]){ $('glbar').style.background = I[3]; $('glo').textContent = I[1]; $('ghi').textContent = I[2]; } $('gcnote').textContent = I[4] || ''; }
+function resize(){ if (!renderer) return; const w = view.clientWidth || innerWidth, h = view.clientHeight || innerHeight; renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize);
+
+// ---------- camera rig ----------
+function updateCamera(){
+  for (const k in rig) rig[k] += (goal[k] - rig[k]) * 0.15;
+  const h = rig.r * Math.cos(rig.el);
+  camera.position.set(rig.tx + h * Math.sin(rig.az), rig.ty + rig.r * Math.sin(rig.el), rig.tz + h * Math.cos(rig.az));
+  camera.lookAt(rig.tx, rig.ty, rig.tz);
+}
+function orbit(dx, dy){ goal.az -= dx; goal.el = clamp(goal.el + dy, -0.2, 1.52); }
+function zoom(f){ goal.r = clamp(goal.r * f, 1.2, 40); }
+function pan(dx, dy){ const k = rig.r * 0.0015, s = Math.sin(rig.az), c = Math.cos(rig.az); goal.tx -= c * dx * k; goal.tz += s * dx * k; goal.ty += dy * k; }
+let drag = null;
+view.addEventListener('contextmenu', e => { if (e.target.tagName === 'CANVAS') e.preventDefault(); });
+$('gscene').addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, b: (e.button === 2 || e.shiftKey) ? 'pan' : 'orbit' }; });
+addEventListener('pointerup', () => drag = null);
+addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; if (drag.b === 'pan') pan(dx, dy); else orbit(dx * 0.005, dy * 0.005); });
+$('gscene').addEventListener('wheel', e => { e.preventDefault(); zoom(1 + e.deltaY * 0.001); }, { passive: false });
+
+// ---------- UI ----------
+$('gpsize').oninput = e => { state.psize = +e.target.value; $('gpsVal').textContent = state.psize.toFixed(1) + '×'; };
+$('gdepth').oninput = e => { state.depthGoal = +e.target.value; };
+$('gvex').oninput = e => { state.vex = +e.target.value; $('gvexVal').textContent = state.vex.toFixed(1) + '×'; if (built) applyVex(); };
+document.querySelector('.gcols').addEventListener('click', e => { const b = e.target.closest('button[data-c]'); if (b && built) setColour(b.dataset.c); }); $('glegend').style.display = 'none';
+$('gbot').oninput = e => { state.botGoal = +e.target.value; };
+// padlocks: a locked slider is disabled and ignored by gestures
+document.querySelectorAll('.glock').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const id = b.dataset.lock; LOCK[id] = !LOCK[id]; b.setAttribute('aria-pressed', LOCK[id]); b.title = LOCK[id] ? 'Unlock' : 'Lock'; $(id).disabled = !!LOCK[id]; }));
+const setStatus = s => $('ghStatus').textContent = s;
+
+// ---------- MediaPipe hand tracking ----------
+const video = $('gvideo'), ovc = $('goverlay'), octx = ovc.getContext('2d');
+const CONN = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
+let hands = null, stream = null, running = false, lastLabel = '—';
+function stopCam(){ running = false; stream && stream.getTracks().forEach(t => t.stop()); $('gcam').style.display = 'none'; $('gbtnCam').textContent = 'Start camera'; $('gbtnCam').classList.remove('on'); setStatus('camera off'); }
+$('gbtnCam').onclick = async () => {
+  if (running){ stopCam(); return; }
+  if (typeof Hands === 'undefined'){ setStatus('hand model failed to load'); return; }
+  try { stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: 'user' }, audio: false }); }
+  catch (err){ setStatus('camera blocked (' + err.name + ')'); return; }
+  video.srcObject = stream; await video.play();
+  hands = window.sharedHands(onResults);
+  running = true; $('gcam').style.display = 'block'; $('gbtnCam').textContent = 'Stop camera'; $('gbtnCam').classList.add('on');
+  setStatus('loading hand model…'); trackLoop();
+};
+async function trackLoop(){ if (!running) return; if (video.readyState >= 2){ try { await hands.send({ image: video }); } catch (err){ console.error(err); setStatus('tracking error'); } } requestAnimationFrame(trackLoop); }
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+// one hand (the right) aims at the pictures with an open palm; two hands together edit the tree and zoom
+const openCount = l => [[8,6],[12,10],[16,14],[20,18]].filter(([t, p]) => dist(l[0], l[t]) > dist(l[0], l[p]) * 1.15).length;
+const isPalm = l => openCount(l) >= 4, isFist = l => openCount(l) === 0;
+const palmC = l => ({ x: 1 - (l[0].x + l[9].x) / 2, y: (l[0].y + l[9].y) / 2 });
+let two = null, fistsAt = 0;
+function onResults(res){
+  const lms = res.multiHandLandmarks || [];
+  octx.clearRect(0, 0, ovc.width, ovc.height);
+  for (const l of lms){ octx.strokeStyle = lms.length > 1 ? 'rgba(94,166,240,.95)' : 'rgba(227,196,126,.9)'; octx.lineWidth = 2; octx.beginPath(); for (const [a, b] of CONN){ octx.moveTo(l[a].x * ovc.width, l[a].y * ovc.height); octx.lineTo(l[b].x * ovc.width, l[b].y * ovc.height); } octx.stroke(); octx.fillStyle = '#ece8df'; for (const p of l){ octx.beginPath(); octx.arc(p.x * ovc.width, p.y * ovc.height, 2.5, 0, 7); octx.fill(); } }
+  setStatus('tracking'); $('ghHands').textContent = lms.length;
+  let label; const now = performance.now();
+  if (lms.length >= 2){
+    const [A, B] = lms[0][0].x > lms[1][0].x ? [lms[0], lms[1]] : [lms[1], lms[0]];   // A is the user's left hand on screen, B the right
+    if (isPalm(A) && isPalm(B)){
+      const a = palmC(A), b = palmC(B), sep = Math.hypot(a.x - b.x, a.y - b.y), my = (a.y + b.y) / 2, tilt = a.y - b.y;
+      if (two && now - two.t < 1200){
+        if (sep > 0.05){ const ratio = two.sep / sep; if (Math.abs(ratio - 1) > 0.006) zoom(Math.pow(ratio, 1.4)); }
+        const dy = my - two.my, tgt = !LOCK.gdepth ? 'gdepth' : !LOCK.gbot ? 'gbot' : null;
+        if (tgt && Math.abs(dy) > 0.003){ if (tgt === 'gdepth') state.depthGoal = clamp(state.depthGoal + dy * MAX_DEPTH * 2.2, 0, MAX_DEPTH); else state.botGoal = clamp(state.botGoal - dy * MAX_DEPTH * 2.2, 0, MAX_DEPTH); }
+        if (!LOCK.gpsize && Math.abs(tilt) > 0.08){ state.psize = clamp(state.psize + Math.sign(tilt) * (Math.abs(tilt) - 0.08) * 0.12, 0.3, 4); $('gpsize').value = state.psize; $('gpsVal').textContent = state.psize.toFixed(1) + '×'; }
+      }
+      two = { sep, my, t: now }; label = 'both hands · zoom, cut';
+    } else if (isFist(A) && isFist(B)){ two = null; if (!fistsAt) fistsAt = now; if (fistsAt > 0 && now - fistsAt > 350){ const order = ['true', 'height', 'heat', 'water']; if (built) setColour(order[(order.indexOf(COL) + 1) % 4]); fistsAt = -1; } label = 'two fists · colour'; }
+    else { two = null; if (!(isFist(A) && isFist(B))) fistsAt = 0; label = 'open both palms'; }
+  } else {
+    two = null; fistsAt = 0;
+    const l = lms[0];
+    if (l && isPalm(l)){ const c = palmC(l); H.x = clamp((c.x - 0.15) / 0.7, 0, 1); H.y = clamp((c.y - 0.12) / 0.62, 0, 1); H.seen = now; label = 'right palm · pictures'; }
+    else label = l ? 'open your palm' : '—';
+  }
+  if (label !== lastLabel && label !== '—' && audio && audio.ctx.state === 'running') chime(audio.ctx.currentTime + 0.02, true);
+  lastLabel = label; $('ghGest').textContent = label;
+}
+window.__gaHands = onResults;
+
+// ---------- field notes hung around the tree ----------
+const NE = window.NOTES_E || [];
+let NG = null, NM = [], HELIX = null, DL = [], ARR = 'scatter', SHOW = true, HOV = null, OPEN = -1, hoverNdc = null;
+const ray = new THREE.Raycaster(), TC = [0.15, -0.1];
+let nseed = 11; const nrnd = () => { nseed = (nseed * 16807) % 2147483647; return (nseed - 1) / 2147483646; };
+function cropTex(t, arImg, arPlane, z, ox, oy){ let rx = z, ry = z * arImg / arPlane; if (ry > 1){ rx /= ry; ry = 1; } t.repeat.set(rx, ry); t.offset.set(ox * (1 - rx), oy * (1 - ry)); }
+function dateSprite(txt){ const c = document.createElement('canvas'); c.width = 512; c.height = 64; const x = c.getContext('2d'); x.font = '600 34px "IBM Plex Mono", monospace'; x.fillStyle = '#e3c47e'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt.toUpperCase(), 256, 34);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, fog: false, depthWrite: false, toneMapped: false })); sp.scale.set(2, 0.25, 1); return sp; }
+function buildNotes(){
+  if (!NE.length) return; NG = new THREE.Group(); scene.add(NG);
+  NE.forEach((e, i) => {
+    const specs = [{ main: 1, w: 1.15, ar: Math.max(.62, Math.min(1.7, e.ar)), z: 1, ox: .5, oy: .5 }];
+    for (let k = 0; k < 2; k++){ const w = 0.42 + nrnd() * 0.26, ar = [1, 1.33, .78, 1.5][Math.floor(nrnd() * 4)]; specs.push({ main: 0, w, ar, z: 1 / (1.35 + nrnd() * .8), ox: nrnd(), oy: nrnd(), k }); }
+    const meshes = specs.map(sp => { const mat = new THREE.MeshBasicMaterial({ color: 0x1a1a1a, side: THREE.DoubleSide, fog: false, toneMapped: false, transparent: true, opacity: 1 });
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(sp.w, sp.w / sp.ar), mat); m.userData = { i, ...sp, h: sp.w / sp.ar, pos: new THREE.Vector3(), goal: new THREE.Vector3(), s: 1, sg: 1 };
+      const edge = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), new THREE.LineBasicMaterial({ color: 0xe3c47e, transparent: true, opacity: 0, fog: false })); m.add(edge); m.userData.edge = edge;
+      NG.add(m); NM.push(m); return m; });
+    const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), sc = Math.min(1, 1024 / Math.max(im.width, im.height)); c.width = Math.round(im.width * sc); c.height = Math.round(im.height * sc); const x = c.getContext('2d'); x.fillStyle = '#0c0c0c'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);   // a solid backing, so transparent maps don't show the tree through them
+      const tex = new THREE.CanvasTexture(c), ai = c.width / c.height; meshes.forEach((m, j) => { const t = j ? tex.clone() : tex; t.colorSpace = THREE.SRGBColorSpace; const u = m.userData; cropTex(t, ai, u.ar, u.z, u.ox, u.oy); t.needsUpdate = true; m.material.map = t; m.material.color.set(0xffffff); m.material.needsUpdate = true; }); }; im.src = e.img;
+    const d = dateSprite(e.d); NG.add(d); DL.push(d); d.userData = { pos: new THREE.Vector3(), goal: new THREE.Vector3() };
+  });
+  arrangeNotes(ARR, true);
+}
+function arrangeNotes(kind, snap){
+  if (!NG) return; ARR = kind; 
+  const N = NE.length, y0 = ptsBot + 0.35, y1 = ptsTop + 0.7, R = 3.7;
+  if (kind === 'spiral'){
+    const th = i => 0.35 + i / (N - 1) * Math.PI * 2 * 1.7, yy = i => y0 + i / (N - 1) * (y1 - y0);
+    NM.forEach(m => { const u = m.userData, i = u.i, t = th(i), y = yy(i);
+      if (u.main) u.goal.set(TC[0] + R * Math.sin(t), y, TC[1] + R * Math.cos(t));
+      else { const dt = (u.k ? 0.36 : -0.33), r = R + (u.k ? 0.55 : -0.35); u.goal.set(TC[0] + r * Math.sin(t + dt), y + (u.k ? 0.42 : -0.38), TC[1] + r * Math.cos(t + dt)); } });
+    DL.forEach((d, i) => { const m = NM.find(q => q.userData.i === i && q.userData.main); d.userData.goal.set(m.userData.goal.x, m.userData.goal.y - m.userData.h / 2 - 0.16, m.userData.goal.z); d.visible = SHOW; });
+    const pts = []; for (let s = 0; s <= 240; s++){ const f = s / 240, t = 0.35 + f * Math.PI * 2 * 1.7, y = y0 + f * (y1 - y0); pts.push(new THREE.Vector3(TC[0] + R * 1.002 * Math.sin(t), y, TC[1] + R * 1.002 * Math.cos(t))); }
+    if (HELIX){ NG.remove(HELIX); HELIX.geometry.dispose(); }
+    HELIX = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0xe3c47e, transparent: true, opacity: 0.3, fog: false })); NG.add(HELIX);
+  } else {
+    const placed = [];
+    NM.slice().sort((a, b) => b.userData.w - a.userData.w).forEach(m => { const u = m.userData; let best = null, bd = -1;
+      for (let k = 0; k < 90; k++){ const t = nrnd() * Math.PI * 2, r = 2.8 + Math.sqrt(nrnd()) * 3.6, v = new THREE.Vector3(TC[0] + r * Math.sin(t), GMETA.anchors.ground[1] - 0.5 + nrnd() * (y1 - GMETA.anchors.ground[1] + 0.9), TC[1] + r * Math.cos(t)); let md = 1e9; for (const p of placed) md = Math.min(md, p.distanceTo(v)); if (md > bd){ bd = md; best = v; } if (md > 1.2) break; }
+      u.goal.copy(best); placed.push(best); });
+    DL.forEach(d => d.visible = false); if (HELIX) HELIX.visible = false;
+  }
+  if (HELIX && kind === 'spiral') HELIX.visible = SHOW;
+  if (snap){ NM.forEach(m => { m.userData.pos.copy(m.userData.goal); }); DL.forEach(d => d.userData.pos.copy(d.userData.goal)); }
+}
+function updateNotes(){
+  if (!NG) return; NG.visible = SHOW; if (!SHOW) return;
+  const hi = HOV ? HOV.userData.i : (OPEN >= 0 ? OPEN : -1);
+  NM.forEach(m => { const u = m.userData; u.pos.lerp(u.goal, 0.07); m.position.copy(u.pos); m.quaternion.copy(camera.quaternion);
+    u.sg = m === HOV ? 1.45 : (hi === u.i ? 1.12 : 1); u.s += (u.sg - u.s) * 0.2; m.scale.setScalar(u.s);
+    const op = hi < 0 || hi === u.i ? 1 : 0.32; m.material.opacity += (op - m.material.opacity) * 0.15; u.edge.material.opacity = hi === u.i ? 0.95 : 0; m.renderOrder = m === HOV ? 2 : 1; });
+  DL.forEach(d => { d.userData.pos.lerp(d.userData.goal, 0.07); d.position.copy(d.userData.pos); });
+  // hover: hand cursor first, then mouse
+  const ndc = H.on && H.inside ? H.ndc : hoverNdc; let hit = null;
+  if (ndc){ ray.setFromCamera(ndc, camera); const r = ray.intersectObjects(NM, false); hit = r.length ? r[0].object : null; }
+  if (hit !== HOV){ HOV = hit; view.classList.toggle('hovpic', !!hit); }
+  const tag = $('gtag'); if (HOV){ const e = NE[HOV.userData.i], p = HOV.position.clone(); p.addScaledVector(camera.up, HOV.userData.h * HOV.userData.s / 2 + 0.08); p.project(camera);
+    tag.style.left = ((p.x + 1) / 2 * view.clientWidth) + 'px'; tag.style.top = ((1 - p.y) / 2 * view.clientHeight) + 'px'; tag.innerHTML = `<b>${e.d}</b>${e.t}`; tag.classList.add('on'); } else tag.classList.remove('on');
+}
+const GO = { design: 'Open research design', terraces: 'Open projected terracing', map: 'Open the map' };
+function openNote(i){ const e = NE[i]; if (!e) return; OPEN = i; const P = $('gnote'); P.hidden = false; requestAnimationFrame(() => P.classList.add('on')); view.classList.add('noting'); P.classList.toggle('now', !!e.now);
+  $('gnth').textContent = `${String(i + 1).padStart(2, '0')} / ${NE.length} · ${e.thName}`; $('gnimg').src = e.img; $('gnimg').alt = e.t; $('gndt').textContent = e.d; $('gnt').textContent = e.t; $('gnp').textContent = e.p; $('gnsrc').textContent = e.cap || '';
+  $('gnact').innerHTML = (e.plate ? `<button type="button" data-plate="${e.plate}">Open ${e.fig.toLowerCase()} in the viewer</button>` : '') + (e.go ? `<button type="button" data-go="${e.go}">${GO[e.go]} →</button>` : '');
+  $('gnprev').disabled = i === 0; $('gnnext').disabled = i === NE.length - 1;
+  const m = NM.find(q => q.userData.i === i && q.userData.main), g = m.userData.goal, az = Math.atan2(g.x - TC[0], g.z - TC[1]), wide = view.clientWidth > 760;
+  goal.az = az; goal.el = 0.1; goal.r = wide ? 4.6 : 5.4; goal.tx = g.x + (wide ? Math.cos(az) * 0.75 : 0); goal.ty = g.y - (wide ? 0 : 0.5); goal.tz = g.z - (wide ? Math.sin(az) * 0.75 : 0);
+  if (audio && audio.ctx.state === 'running') chime(audio.ctx.currentTime + 0.02, true); }
+function closeNote(){ if (OPEN < 0) return; OPEN = -1; $('gnote').classList.remove('on'); view.classList.remove('noting'); setTimeout(() => { if (OPEN < 0) $('gnote').hidden = true; }, 420); goal.r = 14; goal.el = 0.3; goal.tx = 0; goal.tz = 0; applyVex(); }
+$('gnx').onclick = closeNote; $('gnprev').onclick = () => OPEN > 0 && openNote(OPEN - 1); $('gnnext').onclick = () => OPEN < NE.length - 1 && openNote(OPEN + 1);
+$('gnact').addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; if (b.dataset.plate && window.openPlate) window.openPlate(b.dataset.plate); if (b.dataset.go) location.hash = b.dataset.go; });
+$('gnarr').addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; if (b.id === 'gnhide'){ SHOW = !SHOW; b.classList.toggle('on', !SHOW); b.textContent = SHOW ? 'Hide pictures' : 'Show pictures'; if (!SHOW) closeNote(); arrangeNotes(ARR); return; } closeNote(); nseed = (Date.now() % 2147483646) + 1; arrangeNotes('scatter'); });
+addEventListener('keydown', ev => { if (!active) return; if (ev.key === 'Escape') closeNote(); });
+// mouse: hover and click pictures (a click is a press without a drag)
+let down = null;
+$('gscene').addEventListener('pointermove', e => { const r = renderer.domElement.getBoundingClientRect(); hoverNdc = new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); });
+$('gscene').addEventListener('pointerleave', () => { hoverNdc = null; });
+$('gscene').addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY }; });
+$('gscene').addEventListener('pointerup', e => { if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 5 && e.button === 0){ if (HOV) openNote(HOV.userData.i); } down = null; });
+
+// ---------- open palm: aim with the ring, hold to press or open, hold at an edge to walk around ----------
+const H = { on: false, x: 0, y: 0, sx: 0, sy: 0, seen: 0, inside: false, ndc: new THREE.Vector2(), tgt: null, since: 0, fired: 0 };
+function palmTick(){
+  const cur = $('gcur'), fresh = performance.now() - H.seen < 600; H.on = fresh;
+  cur.classList.toggle('on', fresh); if (!fresh){ H.t = 0; setHandTgt(null); return; }
+  const W = view.clientWidth, Hh = view.clientHeight, tnow = performance.now(), k = 1 - Math.pow(0.7, Math.min(200, tnow - (H.t || tnow)) / 16); H.t = tnow; H.sx += (H.x * W - H.sx) * k; H.sy += (H.y * Hh - H.sy) * k; cur.style.transform = `translate(${H.sx.toFixed(1)}px,${H.sy.toFixed(1)}px)`;
+  const ex = H.sx / W, ey = H.sy / Hh; let edge = false, el = null;
+  const r = view.getBoundingClientRect(); cur.style.visibility = 'hidden'; const u = document.elementFromPoint(r.left + H.sx, r.top + H.sy); cur.style.visibility = '';
+  el = u && u.closest('#v-gesture button, #plbox button'); if (el && (el.disabled || el.id === 'gbtnCam')) el = null;
+  const overUI = u && u.closest('#gui, #gnote, #ghud, #plbox');
+  if (!el && !overUI){   // the edges of the frame walk around the tree or look up and down
+    if (ex < 0.08){ orbit(-0.02 * (0.08 - ex) / 0.08 - 0.004, 0); edge = true; } else if (ex > 0.92){ orbit(0.02 * (ex - 0.92) / 0.08 + 0.004, 0); edge = true; }
+    if (ey < 0.12){ orbit(0, -0.01); edge = true; } else if (ey > 0.92){ orbit(0, 0.01); edge = true; }
+    if (!edge && HOV && u && u.tagName === 'CANVAS') el = HOV; }
+  cur.classList.toggle('edge', edge); H.inside = !edge && !overUI;
+  H.ndc.set(ex * 2 - 1, -ey * 2 + 1);
+  setHandTgt(el);
+  const p = H.tgt && performance.now() - H.fired > 900 ? Math.min(1, (performance.now() - H.since) / 1200) : 0; cur.style.setProperty('--p', p.toFixed(3));
+  if (p >= 1){ H.fired = performance.now(); H.since = performance.now() + 1e9; if (H.tgt.isMesh) openNote(H.tgt.userData.i); else H.tgt.click(); }
+}
+function setHandTgt(el){ if (el === H.tgt) return; if (H.tgt && !H.tgt.isMesh) H.tgt.classList.remove('hov'); H.tgt = el; H.since = performance.now(); $('gcur').style.setProperty('--p', 0); if (el && !el.isMesh) el.classList.add('hov'); }
+
+// ---------- ambient sound, C and F major (same score as the Gesture Atlas) ----------
+const A4 = 432;   // tuned to A = 432 Hz (C4 ≈ 256.9 Hz) instead of the standard 440
+const mtof = m => A4 * Math.pow(2, (m - 69) / 12);
+const CHORDS = [[48, 55, 64, 67, 72],[41, 48, 57, 60, 65],[36, 48, 60, 64, 67, 76],[41, 53, 57, 65, 69, 72]];
+const PENTA = [0, 2, 4, 7, 9];
+let audio = null;
+function startAudio(){
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const master = ctx.createGain(); master.gain.value = 0;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3; master.connect(comp).connect(ctx.destination);
+  const rev = ctx.createConvolver(), len = ctx.sampleRate * 5, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+  for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+  rev.buffer = ir; const revG = ctx.createGain(); revG.gain.value = 0.6; rev.connect(revG).connect(master);
+  const delay = ctx.createDelay(2), fb = ctx.createGain(), dTone = ctx.createBiquadFilter();
+  delay.delayTime.value = 0.75; fb.gain.value = 0.38; dTone.type = 'lowpass'; dTone.frequency.value = 2500; delay.connect(dTone).connect(fb).connect(delay); dTone.connect(rev); dTone.connect(master);
+  const padF = ctx.createBiquadFilter(); padF.type = 'lowpass'; padF.frequency.value = 1300; padF.Q.value = 0.7;
+  const padG = ctx.createGain(); padG.gain.value = 0.16; padF.connect(padG); padG.connect(master); padG.connect(rev);
+  const droneF = ctx.createBiquadFilter(); droneF.type = 'lowpass'; droneF.frequency.value = 400;
+  const droneG = ctx.createGain(); droneG.gain.value = 0.12; droneF.connect(droneG).connect(master); droneG.connect(rev);
+  [36, 43, 48].forEach((m, i) => { const o = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain(); o.type = i === 2 ? 'triangle' : 'sine'; o.frequency.value = mtof(m); g.gain.value = i === 2 ? 0.25 : 0.6; lfo.frequency.value = 0.05 + i * 0.03; lg.gain.value = 4; lfo.connect(lg).connect(o.detune); o.connect(g).connect(droneF); o.start(); lfo.start(); });
+  const nb = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate), nd = nb.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource(), nF = ctx.createBiquadFilter(), nG = ctx.createGain(); noise.buffer = nb; noise.loop = true; nF.type = 'lowpass'; nF.frequency.value = 160; nG.gain.value = 0; noise.connect(nF).connect(nG).connect(master); noise.start();
+  const chimeG = ctx.createGain(); chimeG.gain.value = 0.22; chimeG.connect(master); chimeG.connect(delay); chimeG.connect(rev);
+  audio = { ctx, master, padF, droneF, nG, chimeG, chord: 0, nextChord: ctx.currentTime + 0.1, nextChime: ctx.currentTime + 2 };
+  master.gain.setTargetAtTime(+$('gvol').value, ctx.currentTime, 1.5);
+}
+function playChord(t){ const a = audio, ctx = a.ctx, dur = 9;
+  CHORDS[a.chord].forEach((m, i) => { const g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.09, t + 3 + i * 0.4); g.gain.setTargetAtTime(0, t + dur, 1.6); g.connect(a.padF);
+    [-7, 7].forEach(dt => { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = mtof(m); o.detune.value = dt; o.connect(g); o.start(t); o.stop(t + dur + 8); }); });
+  a.chord = (a.chord + 1) % CHORDS.length; }
+function chime(t, accent){ const a = audio, ctx = a.ctx;
+  const octave = state.depth > 2 ? 4 : state.depth > 1 ? 5 : 6, f = mtof(12 * (octave + 1) + PENTA[Math.floor(Math.random() * 5)]);
+  const g = ctx.createGain(), o = ctx.createOscillator(), o2 = ctx.createOscillator(), g2 = ctx.createGain();
+  o.type = o2.type = 'sine'; o.frequency.value = f; o2.frequency.value = f * 2.01; g2.gain.value = 0.25;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(accent ? 0.5 : 0.3, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 3.5);
+  o.connect(g); o2.connect(g2).connect(g); g.connect(a.chimeG); o.start(t); o2.start(t); o.stop(t + 4); o2.stop(t + 4); }
+function updateAudio(){ if (!audio || audio.ctx.state !== 'running') return; const a = audio, t = a.ctx.currentTime, d = state.depth / MAX_DEPTH;
+  if (t > a.nextChord - 0.05){ const at = Math.max(a.nextChord, t + 0.05); playChord(at); a.nextChord = at + 8; }
+  if (t > a.nextChime){ chime(t + 0.05); a.nextChime = t + 1.8 + Math.random() * 3.5; }
+  a.padF.frequency.setTargetAtTime(1300 - d * 1000, t, 0.3); a.droneF.frequency.setTargetAtTime(400 - d * 220, t, 0.3); a.nG.gain.setTargetAtTime(d * 0.18, t, 0.5); }
+$('gbtnSound').onclick = async () => {
+  if (!audio){ startAudio(); await audio.ctx.resume(); } else if (audio.ctx.state === 'running'){ await audio.ctx.suspend(); } else { await audio.ctx.resume(); audio.nextChord = audio.ctx.currentTime + 0.1; }
+  const on = audio.ctx.state === 'running'; $('gbtnSound').textContent = on ? 'Mute sound' : 'Start sound'; $('gbtnSound').classList.toggle('on', on); };
+$('gvol').oninput = e => { $('gvolVal').textContent = Math.round(e.target.value * 100) + '%'; if (audio) audio.master.gain.setTargetAtTime(+e.target.value, audio.ctx.currentTime, 0.1); };
+
+// ---------- loop, started and paused with the view ----------
+function animate(){
+  if (!active) return; requestAnimationFrame(animate);
+  state.depth += (state.depthGoal - state.depth) * 0.2; if (Math.abs(state.depth - state.depthGoal) < 0.002) state.depth = state.depthGoal;
+  state.bot += (state.botGoal - state.bot) * 0.2; if (Math.abs(state.bot - state.botGoal) < 0.002) state.bot = state.botGoal;
+  const span = ptsTop - ptsBot, ft = state.depth / MAX_DEPTH, fb = state.bot / MAX_DEPTH;
+  let cut = ptsTop + 0.05 - ft * span * 0.97, cb = ptsBot - 0.05 + fb * span * 0.97; if (cb > cut - 0.02){ const m = (cut + cb) / 2; cut = m + 0.01; cb = m - 0.01; }
+  cutPlane.constant = cut; cutBot.constant = -cb; ring.position.y = cut; ring2.position.y = cb; ringMat.opacity = (ft > 0.005 || fb > 0.005) ? 0.55 : 0; ring.visible = ft > 0.005; ring2.visible = fb > 0.005;
+  const f = Math.max(ft, fb);
+  pointsMat.size = 0.035 * state.psize;
+  const dtxt = `top ${Math.round(ft * 100)}% · bottom ${Math.round(fb * 100)}%`; $('ghDepth').textContent = dtxt; $('gdepthVal').textContent = Math.round(ft * 100) + '%'; $('gbotVal').textContent = Math.round(fb * 100) + '%';
+  const gy = GMETA.anchors.ground[1]; $('ghCut').textContent = f > 0.005 ? `${((Math.max(cb, ptsBot) - gy) / state.vex).toFixed(2)} to ${((Math.min(cut, ptsTop) - gy) / state.vex).toFixed(2)} m` : '—';
+  if (document.activeElement !== $('gdepth')) $('gdepth').value = state.depthGoal; if (document.activeElement !== $('gbot')) $('gbot').value = state.botGoal;
+  updateAudio(); updateCamera(); palmTick(); updateNotes(); renderer.render(scene, camera);
+}
+addEventListener('emanet:view', e => { const on = e.detail === 'gesture';
+  if (on && !built) setTimeout(() => { build(); active = true; animate(); }, 30);
+  else if (on && !active){ active = true; resize(); animate(); }
+  if (!on){ active = false; if (running) stopCam(); if (audio && audio.ctx.state === 'running'){ audio.ctx.suspend(); $('gbtnSound').textContent = 'Start sound'; $('gbtnSound').classList.remove('on'); } } });
+if (window.__view === 'gesture'){ setTimeout(() => { build(); active = true; animate(); }, 30); }
+</script>
+
 
 <script>
 /* Projected terracing: same renderer as the terrain model, with photographic ground, white terrace edges, labelled contours and terrace-density circles */
